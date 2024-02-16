@@ -171,3 +171,21 @@ h1 {
 .full-width {
   width: 100%;
 }
+
+.input-item {
+  margin-bottom: 24px;
+}
+
+label {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+input {
+  padding: 16px 24px;
+  background-color: #f3f4f6;
+  border: none;
+  border-radius: 12px;
+}
