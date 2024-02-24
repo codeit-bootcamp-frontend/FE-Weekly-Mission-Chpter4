@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 /* 
   Authentication 관련 스타일링
   - 로그인과 회원가입 페이지에 공통된 요소가 많기 때문에 authentication(본인인증)이라는 컨셉으로 묶어 하나의 스타일시트에서 관리해 주었어요.
 */
 
+=======
+>>>>>>> 7d01b84 (chore: separate auth.css for signin/signup pages)
 .auth-container {
   max-width: 640px;
   margin: 0 auto;
