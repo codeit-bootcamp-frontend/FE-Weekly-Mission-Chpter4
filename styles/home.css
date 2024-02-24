@@ -12,6 +12,13 @@
   background-image: url("../images/home/hero-image.png");
 }
 
+.banner h1 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 44.8px;
+  text-align: center;
+}
+
 #bottomBanner {
   background-image: url("../images/home/bottom-banner-image.png");
 }
@@ -65,6 +72,11 @@
 }
 
 @media (min-width: 768px) {
+  .banner h1 {
+    font-size: 40px;
+    line-height: 56px;
+  }
+
   #features {
     padding-top: 24px;
     padding-bottom: 16px;
@@ -72,6 +84,10 @@
 }
 
 @media (min-width: 1280px) {
+  .banner h1 {
+    text-align: left;
+  }
+
   #features {
     padding: 138px 0;
   }
