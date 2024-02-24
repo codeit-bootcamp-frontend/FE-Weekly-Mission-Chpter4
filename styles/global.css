@@ -123,6 +123,7 @@ footer {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  padding: 0 16px;
 }
 
 h1 {
@@ -174,4 +175,10 @@ h1 {
 
 .full-width {
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    padding: 0 24px;
+  }
 }
