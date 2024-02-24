@@ -12,10 +12,6 @@
   background-image: url("../images/home/hero-image.png");
 }
 
-#features {
-  padding-bottom: 138px;
-}
-
 #bottomBanner {
   background-image: url("../images/home/bottom-banner-image.png");
 }
@@ -31,11 +27,17 @@
   margin-top: 32px;
 }
 
+#features {
+  padding-top: 51px;
+}
+
 .feature {
-  padding: 138px 0;
-  display: flex;
-  align-items: center;
-  gap: 5%;
+  margin-bottom: 64px;
+}
+
+.feature img {
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .feature:nth-child(2) {
@@ -62,8 +64,31 @@
   margin-top: 24px;
 }
 
+@media (min-width: 768px) {
+  #features {
+    padding-top: 24px;
+    padding-bottom: 16px;
+  }
+}
+
 @media (min-width: 1280px) {
+  #features {
+    padding: 138px 0;
+  }
+
+  .feature {
+    margin-bottom: 138px;
+    display: flex;
+    align-items: center;
+    gap: 5%;
+  }
+
   .feature:nth-child(2) {
     flex-direction: row-reverse;
+  }
+
+  .feature img {
+    width: 50%;
+    margin-bottom: 0;
   }
 }
