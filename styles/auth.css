@@ -28,9 +28,9 @@
 .input-item label {
   /* <label>은 inline 요소이기 때문에 margin-bottom을 적용하려면 block 요소로 바꿔줘야 해요. */
   display: block;
-  margin-bottom: 16px;
-  font-size: 18px;
   font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
 }
 
 .input-item input {
@@ -107,6 +107,11 @@
     width: 396px;
     padding-top: 48px;
     padding-bottom: 40px;
+  }
+
+  label {
+    font-size: 18px;
+    margin-bottom: 16px;
   }
 }
 
