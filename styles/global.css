@@ -101,11 +101,11 @@ header {
 footer {
   background-color: #111827;
   color: #9ca3af;
+  padding: 32px;
+  font-size: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 200px 108px 200px;
-  font-size: 16px;
 }
 
 #footerMenu {
@@ -191,6 +191,12 @@ h1 {
     font-weight: 700;
     padding: 16px 126px;
   }
+
+  footer {
+    padding: 32px 104px 108px 104px;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -200,5 +206,9 @@ h1 {
 
   .break-on-desktop {
     display: inline;
+  }
+
+  footer {
+    padding: 32px 200px 108px 200px;
   }
 }
