@@ -156,8 +156,8 @@ h1 {
 }
 
 .pill-button {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   border-radius: 999px;
   padding: 16px 124px;
 }
@@ -173,10 +173,6 @@ h1 {
   width: 100%;
 }
 
-.full-width {
-  width: 100%;
-}
-
 @media (min-width: 768px) {
   header {
     padding: 0 24px;
@@ -184,6 +180,12 @@ h1 {
 
   .wrapper {
     padding: 0 24px;
+  }
+
+  .pill-button {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 16px 126px;
   }
 }
 
