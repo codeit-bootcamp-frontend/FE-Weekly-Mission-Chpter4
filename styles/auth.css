@@ -4,8 +4,9 @@
 */
 
 .auth-container {
-  max-width: 640px;
+  max-width: 400px;
   margin: 0 auto;
+  padding: 0 16px;
 }
 
 .logo-home-button-wrapper {
@@ -90,4 +91,10 @@
   text-decoration: underline;
   /* 밑줄과 텍스트 사이 간격을 조정하고 싶다면 text-underline-offset을 사용하면 돼요. */
   text-underline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .auth-container {
+    max-width: 640px;
+  }
 }
