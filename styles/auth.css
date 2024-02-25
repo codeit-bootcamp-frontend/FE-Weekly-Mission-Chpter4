@@ -9,11 +9,16 @@
   padding: 0 16px;
 }
 
-.logo-home-button-wrapper {
+.logo-home-button {
+  margin: 0 auto;
   display: block;
-  text-align: center;
-  margin-top: 60px;
-  margin-bottom: 40px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  width: 198px;
+}
+
+.logo-home-button img {
+  width: 100%;
 }
 
 .input-item {
@@ -96,5 +101,18 @@
 @media (min-width: 768px) {
   .auth-container {
     max-width: 640px;
+  }
+
+  .logo-home-button {
+    width: 396px;
+    padding-top: 48px;
+    padding-bottom: 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .logo-home-button {
+    padding-top: 60px;
+    padding-bottom: 40px;
   }
 }
