@@ -100,12 +100,19 @@ header {
 
 footer {
   background-color: #111827;
-  color: #9ca3af;
   padding: 32px;
   font-size: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+#copyright {
+  order: 3;
+  flex-basis: 100%;
+  color: #9ca3af;
 }
 
 #footerMenu {
@@ -194,8 +201,6 @@ h1 {
 
   footer {
     padding: 32px 104px 108px 104px;
-    display: flex;
-    justify-content: space-between;
   }
 }
 
