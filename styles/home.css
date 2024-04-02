@@ -1,3 +1,5 @@
+/* Mobile styles */
+
 .banner {
   background-color: #cfe5ff;
   height: 60vh;
@@ -84,6 +86,8 @@
   margin-top: 20px;
 }
 
+/* Tablet styles */
+
 @media (min-width: 768px) {
   .banner {
     height: 90vh;
@@ -122,6 +126,8 @@
     line-height: 21.6px;
   }
 }
+
+/* Desktop styles */
 
 @media (min-width: 1280px) {
   .banner {

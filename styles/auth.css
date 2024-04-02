@@ -1,7 +1,16 @@
+/* Mobile styles */
+
 .auth-container {
-  max-width: 400px;
+  /* 로고 위 여백은 전체적인 레이아웃으로 보는 것이 적절한 것 같아 로고 요소가 아닌 페이지 전체 컨테이너의 vertical padding으로 적용했어요 */
+  /* 컨테이너에 horizontal padding으로 여백을 주고 내부 콘텐츠가 컨테이너의 가로 폭을 꽉 채우도록 하면 화면 크기 변화에 따라 자식 요소들의 크기가 조정되는 효과를 만듭니다 */
+  padding: 24px 16px;
+  /* 
+    프로젝트 시작할 때 global style에서 전체 요소에 box-sizing: border-box를 적용했던 것 기억하시나요? 
+    이 설정은 요소의 width에 padding과 border 등의 너비를 포함하도록 만들어 콘텐츠가 레이아웃 밖으로 삐져나오는 것을 방지합니다. 
+    컨테이너에 padding을 준 상태에서 내부 콘텐츠의 실제 사용 가능 너비를 400px로 유지하고자 한다면 max-width를 400px이 아닌, 좌우 패딩을 고려한 432px (400px + 16px*2)로 설정해 주세요.
+  */
+  max-width: 432px;
   margin: 0 auto;
-  /* padding: 0 16px; */
 }
 
 .logo-home-link {
@@ -92,9 +101,13 @@
   text-underline-offset: 2px;
 }
 
+/* Tablet styles */
+
 @media (min-width: 768px) {
   .auth-container {
     max-width: 640px;
+    /* max-width 덕분에 이미 가로 여백이 확보되어 있으니, 불필요한 여백이 추가되어 내부 콘텐츠의 너비가 줄어들지 않도록 가로 패딩은 0으로 적용해 주세요 */
+    padding: 48px 0;
   }
 
   .logo-home-link {
@@ -105,8 +118,16 @@
     width: 396px;
   }
 
-  label {
+  .input-item label {
     font-size: 18px;
     margin-bottom: 16px;
+  }
+}
+
+/* Desktop styles */
+
+@media (min-width: 1280px) {
+  .auth-container {
+    padding: 60px 0;
   }
 }

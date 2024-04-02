@@ -1,3 +1,18 @@
+/* 
+  < 반응형 웹 디자인 (Responsive Web Design) >
+
+  - 현대 사회에는 너무 다양한 크기의 디바이스들이 있기 때문에 사용자가 어떤 디바이스를 사용하든 최적의 사용자 경험을 할 수 있는 반응형 웹을 구현하는 것이 프론트엔드 개발자의 필수 덕목이에요.
+  - media query를 이용해 디바이스 화면(viewport) 크기에 따라 스타일을 다르게 적용할 수 있어요.
+  - 적용되는 스타일링이 바뀌는 화면 크기 기준점을 "media query breakpoint"라고 불러요. 
+  - 서비스의 특성 및 디자인에 따라 5개 이상의 breakpoint로 세밀한 조정을 하는 경우도 있지만, 현실적으로는 mobile, tablet, desktop 이렇게 세 가지 구간(2 breakpoints)으로 나누거나 하나의 breakpoint로 작은 화면/큰 화면 정도로만 고려해 구현하는 경우도 많아요.
+  - 디폴트 스타일을 작성한 뒤 각 breakpoint의 media query 내에 해당 구간에서 이전 구간의 스타일링과 비교했을 때 바뀌는 부분만 넣으면 돼요.
+  - 이때, 큰 화면의 스타일을 디폴트로 작성한 뒤에 점점 작은 화면 구간에서의 스타일을 media query를 이용해 추가하는 방식(desktop-first design)과, 반대로 작은 화면 기준의 스타일을 먼저 작성하는 방식(mobile-first design)이 있어요.
+  - 요즘은 모바일 환경에서 웹사이트를 사용하는 경우가 훨씬 많기 때문에 mobile-first approach를 택하는 것이 개발 트렌드예요. mobile-first로 개발된 웹사이트는 모바일 환경에서 페이지 로딩이 비교적 빠르고 SEO에도 이점이 있어요.
+  - 참고로 mobile-first 접근 방식에서는 `min-width`, desktop-first 접근 방식에서는 `max-width`로 breakpoint를 설정해요.
+*/
+
+/* Mobile styles (default) */
+
 :root {
   /* Gray scale */
   --gray-900: #1b1d1f;
@@ -108,10 +123,8 @@ footer {
 }
 
 .wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
+  /* horizontal padding을 부여하고, width: 100%를 사용해 콘텐츠가 부모 요소의 남은 공간을 꽉 채우도록 합니다 */
   width: 100%;
-  /* added */
   padding: 0 16px;
 }
 
@@ -160,6 +173,8 @@ h1 {
   display: none;
 }
 
+/* Tablet styles (너비 768px 이상의 화면) */
+
 @media (min-width: 768px) {
   header {
     padding: 0 24px;
@@ -185,9 +200,17 @@ h1 {
   }
 }
 
+/* Desktop styles (너비 1280px 이상의 화면) */
+
 @media (min-width: 1280px) {
   header {
     padding: 0 200px;
+  }
+
+  /* 넓은 화면에서는 콘텐츠가 과도하게 확장되지 않도록 max-width를 설정하고, 컨테이너를 화면 중앙에 배치하는 것이 좋아요 */
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .break-on-desktop {
