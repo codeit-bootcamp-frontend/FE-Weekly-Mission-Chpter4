@@ -4,11 +4,17 @@
   /* padding: 0 16px; */
 }
 
-.logo-home-button-wrapper {
+.logo-home-link {
+  /* inline 요소인 anchor 태그에 margin을 적용하려면 block으로 바꿔야 해요 */
   display: block;
+  margin-bottom: 24px;
+  /* inline 자식요소인 img를 가운데 정렬할 때는 text-align: center를 사용하세요 */
   text-align: center;
-  margin-top: 60px;
-  margin-bottom: 40px;
+}
+
+/* 반응형으로 이미지 크기를 변경하고 싶다면 <img> 태그에 바로 width 속성을 넣는 대신 스타일시트에서 img 선택자를 통해 너비를 적용할 수 있어요 */
+.logo-home-link img {
+  width: 198px;
 }
 
 .input-item {
@@ -91,21 +97,16 @@
     max-width: 640px;
   }
 
-  .logo-home-button {
-    width: 396px;
-    margin-top: 48px;
+  .logo-home-link {
     margin-bottom: 40px;
+  }
+
+  .logo-home-link img {
+    width: 396px;
   }
 
   label {
     font-size: 18px;
     margin-bottom: 16px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .logo-home-button {
-    margin-top: 60px;
-    margin-bottom: 40px;
   }
 }
