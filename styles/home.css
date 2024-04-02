@@ -11,6 +11,7 @@
   background-image: url("../images/home/hero-image.png");
 }
 
+/* added */
 .banner h1 {
   font-weight: 700;
   font-size: 32px;
@@ -19,6 +20,7 @@
   padding-bottom: 18px;
 }
 
+/* added */
 #bottomBanner {
   background-image: url("../images/home/bottom-banner-image.png");
 }
@@ -30,6 +32,12 @@
   padding: 11.5px 23px;
 }
 
+/* deleted */
+/* .banner .pill-button {
+  margin-top: 32px;
+} */
+
+/* added */
 #features {
   padding-top: 51px;
 }
@@ -38,6 +46,7 @@
   margin-bottom: 64px;
 }
 
+/* added */
 .feature img {
   width: 100%;
   margin-bottom: 20px;
@@ -51,6 +60,7 @@
   flex: 1;
 }
 
+/* used to be 'feature-tag' class */
 .feature-content h2 {
   color: var(--blue);
   font-size: 16px;
@@ -59,6 +69,7 @@
   margin-bottom: 8px;
 }
 
+/* added */
 .feature-content h1 {
   font-weight: 700;
   font-size: 24px;

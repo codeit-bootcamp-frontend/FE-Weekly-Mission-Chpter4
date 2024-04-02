@@ -1,24 +1,14 @@
-/* 
-  Authentication 관련 스타일링
-  - 로그인과 회원가입 페이지에 공통된 요소가 많기 때문에 authentication(본인인증)이라는 컨셉으로 묶어 하나의 스타일시트에서 관리해 주었어요.
-*/
-
 .auth-container {
   max-width: 400px;
   margin: 0 auto;
-  padding: 0 16px;
+  /* padding: 0 16px; */
 }
 
-.logo-home-button {
-  margin: 0 auto;
+.logo-home-button-wrapper {
   display: block;
-  margin-top: 24px;
-  margin-bottom: 24px;
-  width: 198px;
-}
-
-.logo-home-button img {
-  width: 100%;
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 40px;
 }
 
 .input-item {
@@ -26,7 +16,6 @@
 }
 
 .input-item label {
-  /* <label>은 inline 요소이기 때문에 margin-bottom을 적용하려면 block 요소로 바꿔줘야 해요. */
   display: block;
   font-weight: 700;
   font-size: 14px;
@@ -94,7 +83,6 @@
 .auth-switch a {
   color: #3182f6;
   text-decoration: underline;
-  /* 밑줄과 텍스트 사이 간격을 조정하고 싶다면 text-underline-offset을 사용하면 돼요. */
   text-underline-offset: 2px;
 }
 
