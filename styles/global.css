@@ -99,16 +99,24 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* flex-wrap */
+  /* 
+    - 기본적으로 flexbox 컨테이너는 모든 항목을 한 줄에 배치하려고 시도합니다. 'flex-wrap' 속성을 이용하면 모든 항목을 한 줄에 배치할지, 여러 줄로 나누어져도 되는지의 여부를 제어할 수 있어요.
+    - flex 요소에서 flex-wrap을 별도로 설정하지 않는다면 기본값인 `nowrap`이 적용됩니다. 컨테이너의 너비가 모든 항목을 한 줄에 포함시키기에 충분하지 않을 경우, 요소의 크기가 컨테이너 너비에 맞게 자동으로 축소되는 특징이 있어요.
+    - flex-wrap: wrap을 적용하면 공간이 모자랄 경우 항목을 다음 줄로 이동시켜 각 요소의 크기와 스타일이 유지될 수 있도록 합니다. gap을 함께 설정해 주면 줄바꿈이 일어났을 때 원하는 행간을 적용할 수 있어요.
+  */
   flex-wrap: wrap;
   gap: 60px;
 }
 
-/* added */
+/* 
+  큰 화면에서 footer 내에 있는 모든 요소를 한 줄에 표시할 때는 `©codeit`이 가장 왼쪽에 첫 번째로 표시되지만, 모바일에서는 맨 아랫줄에 표시되도록 디자인되어 있습니다. 
+  flex-wrap을 통해 마지막 요소를 다음 줄에 표시하는 방식으로 레이아웃을 구현하기로 했기 때문에 모바일 환경에서는 `©codeit`을 가장 마지막 요소로 만들어줘야 해요.
+  order 속성을 사용하면 HTML 구조상의 순서와 무관하게 flex 요소의 시각적 순서를 변경할 수 있어요.
+  여기에 flex 항목의 너비를 설정하는 flex-basis를 100%로 놓는다면 `©codeit` 요소가 줄 전체 너비를 차지하게 되어 항상 새로운 줄에 단독으로 배치되겠죠.
+*/
 #copyright {
   order: 3;
   flex-basis: 100%;
-  color: #9ca3af;
 }
 
 #footerMenu {
@@ -161,14 +169,14 @@ h1 {
   font-size: 16px;
   font-weight: 600;
   border-radius: 999px;
-  padding: 16px 124px;
+  padding: 14.5px 33.5px;
 }
 
 .full-width {
   width: 100%;
 }
 
-/* added */
+/* 줄바꿈을 없애는 효과 */
 .break-on-desktop {
   display: none;
 }
@@ -194,6 +202,7 @@ h1 {
     padding: 32px 104px 108px 104px;
   }
 
+  /* 모바일 스타일에서 바꿨던 order와 flex-basis를 다시 기본값으로 되돌려 놓습니다 */
   #copyright {
     flex-basis: auto;
     order: 0;
@@ -213,6 +222,7 @@ h1 {
     margin: 0 auto;
   }
 
+  /* 다시 줄바꿈을 활성화하는 효과 */
   .break-on-desktop {
     display: inline;
   }
