@@ -4,27 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- 
-      메타데이터를 이용해 공유 링크 미리보기에 표시될 내용을 매력적으로 바꿔주세요!
-      SNS에서의 가시성뿐만 아니라 검색 엔진 최적화(SEO)에도 생각보다 중요한 영향을 미쳐요.
-
-      < Meta tag: Open Graph >
-      - OG 메타 태그 중 필수 항목으로 강요되는 건 없지만, 페이스북에서 메타데이터를 표준화하기 위해 만든 규약인 Open Graph Protocol에서는 1. title, 2. type, 3. image, 4. url 네 가지를 기본으로 권장하고 있어요.
-      - og:description은 optional metadata로 분류되어 있지만 가장 많이 사용되는 설정 중 하나입니다.
-      - og:title이 설정되어 있는 경우에는 미리보기 제목으로 설정값을 우선적으로 사용하고, 없는 경우엔 <title> 태그 내에 있는 스트링으로 표시합니다. 만약 두 값이 동일하더라도 Open Graph Protocol에 따라 og:title을 명시해주는 것을 권장합니다.
-      - og:title과 og:description 태그는 SNS 공유에서뿐만 아니라, 검색 엔진 결과 페이지에서의 미리보기 텍스트로도 사용돼요.
-      - og:type 태그로 website, article, video.movie, music.playlist 등 페이지의 유형을 정의해 주세요. 플랫폼에 따라 각 콘텐츠 및 미디어 유형에 맞는 여러 가지 미리보기 레이아웃이 존재하는 경우도 있기 때문에 type을 설정해준다면 최적화된 UI를 활용할 수 있어요.
-      - og:image가 설정되어 있지 않은 경우 플랫폼에 따라서 페이지 내에서 임의의 이미지를 선택하여 미리보기로 사용하는 등 링크와 관련 없는 형태로 표시될 수 있어요. OG 이미지의 권장 사이즈는 1200 x 630px (1.91:1 비율)입니다.
-      - index.html 외에도 모든 HTML 파일에서 OG 태그를 설정해야 해요. 이때, og:url에는 각 페이지의 주소를 넣어주면 되고, 나머지 OG 정보 또한 페이지의 콘텐츠에 맞게 각각 다르게 넣어줘도 좋아요.
-      - 참고 문서: https://ogp.me/
-
-      < Meta tag: Twitter Cards >
-      - 페이스북의 Open Graph가 가장 널리 통용되지만, 이외에도 Twitter Card라고 불리는 X(구 트위터)의 메타데이터 설정을 함께 해주면 더 다양한 플랫폼에서의 미리보기 스타일을 제어할 수 있습니다. 
-      - 필수 태그인 twitter:card로 카드 유형을 지정하고, 각 유형별로 요구되는 태그를 추가하는 방식입니다.
-      - 참고 문서: https://developer.twitter.com/en/docs/twitter-for-websites/cards/
-
-      * 꿀팁: Open graph validator, Twitter card validator 사이트를 활용해 내 링크의 미리보기가 각종 플랫폼에서 어떻게 표시되고 있는지 미리 확인해 보세요 ;)
-    -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://panda-market-sample.netlify.app" />
     <meta property="og:title" content="판다마켓" />
@@ -70,7 +49,6 @@
           <img src="images/home/feature1-image.png" alt="인기 상품" />
           <div class="feature-content">
             <h2>Hot item</h2>
-            <!-- 화면 크기 구간에 따라 줄바꿈 유무가 달라진다면 <span>으로 <br> 태그를 감싸고 media query에서 해당 클래스의 display 속성을 조절해 보세요 -->
             <h1>
               인기 상품을 <span class="break-on-desktop"><br /></span>확인해
               보세요
