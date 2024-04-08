@@ -35,6 +35,7 @@
       <form method="post">
         <div class="input-item">
           <label for="email">이메일</label>
+          <!-- form 관련 태그에 `required` 속성을 사용하면 해당 필드를 필수 입력 항목으로 지정해 폼 제출 전 클라이언트 측에서 간단한 유효성 검사를 할 수 있어요. -->
           <input
             id="email"
             name="email"
@@ -42,7 +43,20 @@
             placeholder="이메일을 입력해 주세요"
             required
           />
+          <!-- 
+            오류 메세지 처리
+            - 사용자 입력값이 유효성 검사 기준을 충족하지 않을 때 표시될 메시지
+            - <span> 태그와 고유 ID를 사용하여 각 오류 메시지를 특정하고, 자바스크립트를 통해 메세지의 표시 여부를 제어
+            - 'error-message' class로 오류 메시지의 스타일을 지정
+          -->
+          <span id="emailEmptyError" class="error-message"
+            >이메일을 입력해주세요.</span
+          >
+          <span id="emailInvalidError" class="error-message"
+            >잘못된 이메일 형식입니다</span
+          >
         </div>
+
         <div class="input-item">
           <label for="nickname">닉네임</label>
           <input
@@ -52,7 +66,11 @@
             placeholder="닉네임을 입력해 주세요"
             required
           />
+          <span id="nicknameEmptyError" class="error-message"
+            >닉네임을 입력해주세요.</span
+          >
         </div>
+
         <div class="input-item">
           <label for="password">비밀번호</label>
           <div class="input-wrapper">
@@ -74,7 +92,14 @@
               />
             </button>
           </div>
+          <span id="passwordEmptyError" class="error-message"
+            >비밀번호를 입력해주세요.</span
+          >
+          <span id="passwordInvalidError" class="error-message"
+            >비밀번호를 8자 이상 입력해주세요.</span
+          >
         </div>
+
         <div class="input-item">
           <label for="passwordConfirmation">비밀번호 확인</label>
           <div class="input-wrapper">
@@ -96,6 +121,9 @@
               />
             </button>
           </div>
+          <span id="passwordConfirmationError" class="error-message"
+            >비밀번호가 일치하지 않습니다.</span
+          >
         </div>
 
         <button type="submit" class="button pill-button full-width">
@@ -133,5 +161,8 @@
         이미 회원이신가요? <a href="login.html">로그인</a>
       </div>
     </main>
+
+    <!-- 자바스크립트 파일 불러오기 -->
+    <script src="scripts/auth.js"></script>
   </body>
 </html>
