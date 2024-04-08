@@ -35,11 +35,13 @@
       <form method="post">
         <div class="input-item">
           <label for="email">이메일</label>
+          <!-- form 관련 태그에 `required` 속성을 사용하면 해당 필드를 필수 입력 항목으로 지정해 폼 제출 전 클라이언트 측에서 간단한 유효성 검사를 할 수 있어요. -->
           <input
             id="email"
             name="email"
             type="email"
             placeholder="이메일을 입력해 주세요"
+            required
           />
         </div>
         <div class="input-item">
@@ -50,6 +52,7 @@
               name="password"
               type="password"
               placeholder="비밀번호를 입력해 주세요"
+              required
             />
             <button
               type="button"
