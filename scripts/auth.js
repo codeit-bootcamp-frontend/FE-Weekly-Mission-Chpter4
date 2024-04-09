@@ -1,4 +1,4 @@
-// 입력 필드에 이벤트 리스너 추가
+// ID를 통해 타겟 input 요소에 접근
 const emailInput = document.getElementById("email");
 const nicknameInput = document.getElementById("nickname");
 const passwordInput = document.getElementById("password");
@@ -6,19 +6,17 @@ const passwordConfirmationInput = document.getElementById(
   "passwordConfirmation"
 );
 
-// 입력 필드 선택 후 focus out 했을 때 각 필드에 해당하는 유효성 검증 함수를 호출
-// 회원가입 및 로그인 form에서는 사용자가 입력한 데이터의 유효성을 즉각적으로 검증하고 피드백을 제공하기 위해서 focusout, input, change 이벤트를 많이 사용해요.
-emailInput.addEventListener("focusout", validateEmailField);
-nicknameInput.addEventListener("focusout", validateNicknameField);
-passwordInput.addEventListener("focusout", validatePasswordField);
-passwordConfirmationInput.addEventListener(
-  "focusout",
-  validatePasswordConfirmationField
+// 오류 메시지 요소 접근
+const emailEmptyError = document.getElementById("emailEmptyError");
+const emailInvalidError = document.getElementById("emailInvalidError");
+const nicknameEmptyError = document.getElementById("nicknameEmptyError");
+const passwordEmptyError = document.getElementById("passwordEmptyError");
+const passwordInvalidError = document.getElementById("passwordInvalidError");
+const passwordConfirmationError = document.getElementById(
+  "passwordConfirmationError"
 );
-// 비밀번호 확인 필드 입력 시 비밀번호 필드에 입력값이 있는지 바로 확인 및 오류 메세지 표시
-passwordConfirmationInput.addEventListener(
-  "input",
-  initializePasswordConfirmation
+const passwordConfirmationInitError = document.getElementById(
+  "passwordConfirmationInitError"
 );
 
 // 오류 메세지 노출 함수 (오류 메시지 <span>을 표시하고 입력 필드에 빨간색 테두리를 추가)
@@ -118,3 +116,25 @@ function validatePasswordConfirmationField() {
     showError(passwordConfirmationInput, passwordConfirmationError);
   }
 }
+
+// 입력 필드에 이벤트 리스너 추가
+// - 회원가입 및 로그인 form에서는 사용자가 입력한 데이터의 유효성을 즉각적으로 검증하고 피드백을 제공하기 위해서 focusout, input, change 등의 input event를 많이 사용해요.
+// - 선택사항: `DOMContentLoaded` 이벤트 리스너를 사용해 DOM 요소들이 완전히 로드된 후에 이벤트 리스너를 등록하면, 스크립트 태그의 위치와 상관 없이 DOM 요소를 안전하게 참조할 수 있어요.
+//   현재 HTML 구조에서는 자바스크립트 파일이 문서의 마지막에 위치해 있기 때문에 DOMContentLoaded 없이 바로 이벤트 리스너들을 추가해도 문제 없어요.
+//   스크립트의 위치를 문서 상단으로 이동하거나, 동적으로 스크립트를 로드하는 경우에는 DOMContentLoaded 이벤트 리스너 내부에서 이벤트 리스너들을 등록하는 것이 안전해요.
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 입력 필드 선택 후 focus out 했을 때 각 필드에 해당하는 유효성 검증 함수를 호출
+  emailInput.addEventListener("focusout", validateEmailField);
+  nicknameInput.addEventListener("focusout", validateNicknameField);
+  passwordInput.addEventListener("focusout", validatePasswordField);
+  passwordConfirmationInput.addEventListener(
+    "focusout",
+    validatePasswordConfirmationField
+  );
+  // 비밀번호 확인 필드 입력 시 비밀번호 필드에 입력값이 있는지 바로 확인 및 오류 메세지 표시
+  passwordConfirmationInput.addEventListener(
+    "input",
+    initializePasswordConfirmation
+  );
+});
