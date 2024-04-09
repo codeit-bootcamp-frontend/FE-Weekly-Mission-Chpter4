@@ -86,8 +86,11 @@ function validatePasswordConfirmationField() {
   const isMatch = passwordValue === passwordConfirmationValue;
 
   hideError(passwordConfirmationInput, passwordConfirmationError);
+  hideError(passwordConfirmationInput, passwordConfirmationInitError);
 
-  if (!passwordConfirmationValue || !isMatch) {
+  if (!passwordValue) {
+    showError(passwordConfirmationInput, passwordConfirmationInitError);
+  } else if (!passwordConfirmationValue || !isMatch) {
     showError(passwordConfirmationInput, passwordConfirmationError);
   }
 }
