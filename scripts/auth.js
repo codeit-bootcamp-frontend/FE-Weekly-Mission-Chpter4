@@ -14,6 +14,11 @@ passwordConfirmationInput.addEventListener(
   "focusout",
   validatePasswordConfirmationField
 );
+// 비밀번호 확인 필드 선택 시 비밀번호 필드에 입력값이 있는지 먼저 검증 및 오류 메세지 표시
+passwordConfirmationInput.addEventListener(
+  "focusin",
+  initializePasswordConfirmation
+);
 
 // 오류 메세지 노출 함수 (오류 메시지 <span>을 표시하고 입력 필드에 빨간색 테두리를 추가)
 // - 코드 중복을 줄이기 위해 반복되는 코드를 함수화해 주었어요. (DRY 원칙, "Don't Repeat Yourself")
@@ -79,6 +84,19 @@ function validatePasswordField() {
   }
 }
 
+// 비밀번호 입력 전에 비밀번호 확인 필드 입력을 먼저 시도하는 만일의 경우를 대비한 검증 로직
+// 비밀번호 확인 필드에 focus in 됐을 때 실행하기 위해 validatePasswordConfirmationField 함수와 분리함
+function initializePasswordConfirmation() {
+  const passwordValue = passwordInput.value.trim();
+
+  hideError(passwordConfirmationInput, passwordConfirmationError);
+  hideError(passwordConfirmationInput, passwordConfirmationInitError);
+
+  if (!passwordValue) {
+    showError(passwordConfirmationInput, passwordConfirmationInitError);
+  }
+}
+
 // 비밀번호 확인 필드의 유효성 검사
 function validatePasswordConfirmationField() {
   const passwordValue = passwordInput.value.trim();
@@ -88,9 +106,10 @@ function validatePasswordConfirmationField() {
   hideError(passwordConfirmationInput, passwordConfirmationError);
   hideError(passwordConfirmationInput, passwordConfirmationInitError);
 
-  if (!passwordValue) {
-    showError(passwordConfirmationInput, passwordConfirmationInitError);
-  } else if (!passwordConfirmationValue || !isMatch) {
+  if (!passwordConfirmationValue || !isMatch) {
     showError(passwordConfirmationInput, passwordConfirmationError);
+  } else {
+    // 비밀번호 확인 필드를 먼저 입력한 후에 비밀번호 필드 입력 시 passwordConfirmationInitError 메세지 초기화
+    initializePasswordConfirmation();
   }
 }
