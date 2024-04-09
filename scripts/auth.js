@@ -7,6 +7,7 @@ const passwordConfirmationInput = document.getElementById(
 );
 
 // 입력 필드 선택 후 focus out 했을 때 각 필드에 해당하는 유효성 검증 함수를 호출
+// 회원가입 및 로그인 form에서는 사용자가 입력한 데이터의 유효성을 즉각적으로 검증하고 피드백을 제공하기 위해서 focusout, input, change 이벤트를 많이 사용해요.
 emailInput.addEventListener("focusout", validateEmailField);
 nicknameInput.addEventListener("focusout", validateNicknameField);
 passwordInput.addEventListener("focusout", validatePasswordField);
@@ -14,9 +15,9 @@ passwordConfirmationInput.addEventListener(
   "focusout",
   validatePasswordConfirmationField
 );
-// 비밀번호 확인 필드 선택 시 비밀번호 필드에 입력값이 있는지 먼저 검증 및 오류 메세지 표시
+// 비밀번호 확인 필드 입력 시 비밀번호 필드에 입력값이 있는지 바로 확인 및 오류 메세지 표시
 passwordConfirmationInput.addEventListener(
-  "focusin",
+  "input",
   initializePasswordConfirmation
 );
 
@@ -92,7 +93,7 @@ function validatePasswordField() {
 }
 
 // 비밀번호 입력 전에 비밀번호 확인 필드 입력을 먼저 시도하는 만일의 경우를 대비한 검증 로직
-// 비밀번호 확인 필드에 focus in 됐을 때 실행하기 위해 validatePasswordConfirmationField 함수와 분리함
+// 비밀번호 확인 필드에서 focus out됐을 때가 아닌 입력 시 실행하기 위해 validatePasswordConfirmationField 함수와 분리함
 function initializePasswordConfirmation() {
   hideError(passwordConfirmationInput, passwordConfirmationError);
   hideError(passwordConfirmationInput, passwordConfirmationInitError);
