@@ -44,7 +44,7 @@ function validateEmailField() {
 
   if (!emailValue) {
     showError(emailInput, emailEmptyError);
-  } else if (!isValidEmail(emailValue)) {
+  } else if (!isEmailValid(emailValue)) {
     showError(emailInput, emailInvalidError);
   }
 }
@@ -54,7 +54,7 @@ function validateEmailField() {
 // - 이메일 형식을 검증하는 다양한 정규식이 존재하는데 너무 엄격하지도, 너무 느슨하지도 않은 실용적인 버전을 사용하는 게 좋아요.
 // - 예시에 사용된 정규식은 보편적으로 사용되는 이메일 주소 형식에 대해서는 높은 검증 성공률을 보이지만, 특수한 도메인의 이메일을 포착하는 데에는 한계가 있을 수 있기 때문에 완벽한 솔루션은 아니에요.
 
-function isValidEmail(email) {
+function isEmailValid(email) {
   const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
   return emailRegex.test(email);
 }
@@ -70,6 +70,9 @@ function validateNicknameField() {
   }
 }
 
+// 비밀번호 필드의 유효성 검사 상태를 저장하는 전역 변수
+let isPasswordValid = false;
+
 // 비밀번호 필드의 유효성 검사
 function validatePasswordField() {
   const passwordValue = passwordInput.value.trim();
@@ -79,20 +82,22 @@ function validatePasswordField() {
 
   if (!passwordValue) {
     showError(passwordInput, passwordEmptyError);
+    isPasswordValid = false;
   } else if (passwordValue.length < 8) {
     showError(passwordInput, passwordInvalidError);
+    isPasswordValid = false;
+  } else {
+    isPasswordValid = true;
   }
 }
 
 // 비밀번호 입력 전에 비밀번호 확인 필드 입력을 먼저 시도하는 만일의 경우를 대비한 검증 로직
 // 비밀번호 확인 필드에 focus in 됐을 때 실행하기 위해 validatePasswordConfirmationField 함수와 분리함
 function initializePasswordConfirmation() {
-  const passwordValue = passwordInput.value.trim();
-
   hideError(passwordConfirmationInput, passwordConfirmationError);
   hideError(passwordConfirmationInput, passwordConfirmationInitError);
 
-  if (!passwordValue) {
+  if (!isPasswordValid) {
     showError(passwordConfirmationInput, passwordConfirmationInitError);
   }
 }
@@ -106,10 +111,9 @@ function validatePasswordConfirmationField() {
   hideError(passwordConfirmationInput, passwordConfirmationError);
   hideError(passwordConfirmationInput, passwordConfirmationInitError);
 
-  if (!passwordConfirmationValue || !isMatch) {
+  if (!isPasswordValid) {
+    showError(passwordConfirmationInput, passwordConfirmationInitError);
+  } else if (!passwordConfirmationValue || !isMatch) {
     showError(passwordConfirmationInput, passwordConfirmationError);
-  } else {
-    // 비밀번호 확인 필드를 먼저 입력한 후에 비밀번호 필드 입력 시 passwordConfirmationInitError 메세지 초기화
-    initializePasswordConfirmation();
   }
 }
