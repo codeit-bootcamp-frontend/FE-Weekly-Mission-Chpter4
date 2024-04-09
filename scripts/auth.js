@@ -97,6 +97,39 @@ function initializePasswordConfirmation() {
   }
 }
 
+// 비밀번호 표시 상태 온오프(toggle) 버튼 동작
+function togglePassword(event) {
+  // 이벤트가 발생한 버튼을 기준으로 타겟 요소를 찾음
+  const button = event.currentTarget;
+  const inputField = button.parentElement.querySelector("input");
+  const toggleIcon = button.querySelector(".password-toggle-icon");
+
+  // input의 type을 'password'으로 설정하면 입력값이 마스킹된 상태(비밀번호 숨김 상태)로 렌더링되고, 'text'로 설정하면 일반 문자로 출력됩니다.
+  const isPasswordVisible = inputField.type === "text";
+
+  // 비밀번호 입력 필드 타입 토글
+  // - 비밀번호 필드의 type 설정값이 'password'로 확인되면 'text'로, 'text'라면 반대로 'password'로 업데이트해 준다면 원하는 동작을 구현할 수 있어요.
+  inputField.type = isPasswordVisible ? "password" : "text";
+
+  // 토글 버튼 아이콘의 이미지 파일과 alt도 비밀번호 표시 상태와 함께 변경해 주세요.
+  toggleIcon.src = isPasswordVisible
+    ? "images/icons/eye-invisible.svg"
+    : "images/icons/eye-visible.svg";
+  toggleIcon.alt = isPasswordVisible
+    ? "비밀번호 숨김 상태 아이콘"
+    : "비밀번호 표시 상태 아이콘";
+
+  // 버튼의 aria-label 속성 업데이트
+  // - 텍스트 정보 없이 이미지로만 되어 있는 버튼 요소이므로 시각장애인의 웹 접근성을 위해 `aria-label`을 추가해 주세요.
+  // - 버튼 클릭 시 일어나는 동작을 기준으로 설명을 작성해 주세요.
+  // - `aria-label`은 이름의 hyphen 때문에 자바스크립트에서 유효한 식별자로 인식되지 않아 dot notation을 통해 객체의 프로퍼티에 접근할 수 없어요.
+  //    이런 속성을 설정하거나 가져올 때는 setAttribute과 getAttribute 메서드를 사용해야 해요.
+  button.setAttribute(
+    "aria-label",
+    isPasswordVisible ? "비밀번호 보기" : "비밀번호 숨기기"
+  );
+}
+
 // 입력 필드에 이벤트 리스너 추가
 // - 회원가입 및 로그인 form에서는 사용자가 입력한 데이터의 유효성을 즉각적으로 검증하고 피드백을 제공하기 위해서 focusout, input, change 등의 input event를 많이 사용해요.
 // - 선택사항: `DOMContentLoaded` 이벤트 리스너를 사용해 DOM 요소들이 완전히 로드된 후에 이벤트 리스너를 등록하면, 스크립트 태그의 위치와 상관 없이 DOM 요소를 안전하게 참조할 수 있어요.
@@ -116,5 +149,14 @@ document.addEventListener("DOMContentLoaded", () => {
   passwordConfirmationInput.addEventListener(
     "input",
     initializePasswordConfirmation
+  );
+
+  // 비밀번호 토글 버튼에 이벤트 리스너 추가
+  // - 회원가입 페이지에서는 비밀번호 토글 버튼이 두 개이기 때문에 ID 대신 querySelectorAll과 class 선택자를 사용하여 비밀번호 토글 버튼의 배열을 생성한 다음, forEach 루프를 사용해 각 버튼에 클릭 이벤트 리스너를 추가하는 방식을 택했어요.
+  // - 이 방법은 페이지 내에서 동일한 클래스를 가진 여러 요소에 같은 기능을 적용할 때 효과적이에요.
+  // - 버튼 클릭 시 실행되는 togglePassword 함수에서는 이벤트가 발생한 특정 버튼에 대한 조작이 이루어지므로, 같은 페이지에 여러 토글 버튼이 있더라도 각각 독립적으로 기능하게 됩니다.
+  const toggleButtons = document.querySelectorAll(".password-toggle-button"); // 'password-toggle-button' 클래스를 가진 모든 요소들의 배열
+  toggleButtons.forEach((button) =>
+    button.addEventListener("click", togglePassword)
   );
 });
