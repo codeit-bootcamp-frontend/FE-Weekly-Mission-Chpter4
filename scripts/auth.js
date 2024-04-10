@@ -3,12 +3,22 @@
 //         스크립트의 위치를 문서 상단으로 이동하거나, 동적으로 스크립트를 로드하는 경우에는 DOMContentLoaded 이벤트 리스너 내부에서 이벤트 리스너들을 등록하는 것이 안전해요.
 
 document.addEventListener("DOMContentLoaded", () => {
-  // ID를 통해 타겟 input 요소에 접근
+  // 각 필드의 유효성 검사 상태를 저장하는 전역 변수
+  let isEmailValid = false;
+  let isNicknameValid = false;
+  let isPasswordValid = false;
+  let isPasswordConfirmationValid = false;
+
+  // ID를 통해 타겟 DOM 요소에 접근
+  const signupForm = document.getElementById("signupForm");
   const emailInput = document.getElementById("email");
   const nicknameInput = document.getElementById("nickname");
   const passwordInput = document.getElementById("password");
   const passwordConfirmationInput = document.getElementById(
     "passwordConfirmation"
+  );
+  const submitButton = document.querySelector(
+    '.auth-container form button[type="submit"]'
   );
 
   // 오류 메세지 노출 함수 (오류 메시지 <span>을 visible하게 만들고 입력 필드에 빨간색 테두리를 추가)
@@ -31,100 +41,132 @@ document.addEventListener("DOMContentLoaded", () => {
   // - 정규표현식(Regular Expression, Regex)을 통해 입력된 값이 기본적인 이메일 형식을 따르고 있는지 확인 후 boolean을 리턴합니다.
   // - 이메일 형식을 검증하는 다양한 정규식이 존재하는데 너무 엄격하지도, 너무 느슨하지도 않은 실용적인 버전을 사용하는 게 좋아요.
   // - 예시에 사용된 정규식은 보편적으로 사용되는 이메일 주소 형식에 대해서는 높은 검증 성공률을 보이지만, 특수한 도메인의 이메일을 포착하는 데에는 한계가 있을 수 있기 때문에 완벽한 솔루션은 아니에요.
-  function isEmailValid(email) {
+  function validateEmailString(email) {
     const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
     return emailRegex.test(email);
   }
 
   // 이메일 필드의 유효성 검사 (입력 여부 및 형식)
-  function validateEmailField() {
-    const emailValue = emailInput.value.trim(); // 입력값의 앞뒤 공백(whitespace) 제거
+  function checkEmailValidity() {
+    const emailValue = emailInput.value.trim();
 
     // 오류 메세지 및 입력 필드의 상태를 먼저 초기화
     // - 사용자가 입력한 값이 유효성 검사를 통과하지 못해 오류 메시지가 한 번 표시된 이후 입력값을 수정하여 필드가 유효한 상태가 되었을 때 오류 메시지를 다시 숨김 처리하기 위한 용도
     // - 두 가지 오류 메세지가 동시에 노출되지 않도록 하기 위한 용도
+    isEmailValid = false;
     hideError(emailInput, "emailEmptyError");
     hideError(emailInput, "emailInvalidError");
 
     if (!emailValue) {
       showError(emailInput, "emailEmptyError");
-    } else if (!isEmailValid(emailValue)) {
+    } else if (!validateEmailString(emailValue)) {
       showError(emailInput, "emailInvalidError");
+    } else {
+      isEmailValid = true;
+      hideError(emailInput, "emailEmptyError");
+      hideError(emailInput, "emailInvalidError");
     }
+    // 어느 순서로 input을 입력할지 모르니 매번 submit button 활성화해야 하는지 체크하는 것이 안전해요. (추후에 React state을 사용하면 해결되는 문제!)
+    updateSubmitButtonState();
   }
 
   // 닉네임 필드의 유효성 검사
-  function validateNicknameField() {
+  function checkNicknameValidity() {
+    const nicknameValue = nicknameInput.value.trim();
+    isNicknameValid = false;
     hideError(nicknameInput, "nicknameEmptyError");
 
-    if (!nicknameInput.value.trim()) {
+    if (!nicknameValue) {
       showError(nicknameInput, "nicknameEmptyError");
+    } else {
+      isNicknameValid = true;
+      hideError(emailInput, "nicknameEmptyError");
     }
+    updateSubmitButtonState();
   }
 
-  // 비밀번호 필드의 유효성 검사 상태를 저장하는 전역 변수
-  // - 비밀번호 입력 전에 비밀번호 확인 필드 입력을 먼저 시도하는 경우를 대비해 검증 로직 강화
-  let isPasswordValid = false;
-
   // 비밀번호 필드의 유효성 검사
-  function validatePasswordField() {
+  function checkPasswordValidity() {
     const passwordValue = passwordInput.value.trim();
-    isPasswordValid = passwordValue && passwordValue.length >= 8; // 유효성 검사 상태 업데이트
+    isPasswordValid = false;
 
     hideError(passwordInput, "passwordEmptyError");
     hideError(passwordInput, "passwordInvalidError");
 
     if (!passwordValue) {
       showError(passwordInput, "passwordEmptyError");
-    } else if (!isPasswordValid) {
+    } else if (passwordValue.length < 8) {
       showError(passwordInput, "passwordInvalidError");
+    } else {
+      isPasswordValid = true;
+      hideError(passwordInput, "passwordEmptyError");
+      hideError(passwordInput, "passwordInvalidError");
+    }
+    updateSubmitButtonState();
+
+    // 비밀번호 입력 전에 비밀번호 확인 필드 입력을 먼저 시도하는 경우를 대비해 검증 로직 강화
+    if (signupForm) {
+      checkPasswordConfirmationValidity();
     }
   }
 
   // 비밀번호 확인 필드의 유효성 검사
-  function validatePasswordConfirmationField() {
-    hideError(passwordConfirmationInput, "passwordConfirmationError");
-    hideError(passwordConfirmationInput, "passwordConfirmationInitError");
+  function checkPasswordConfirmationValidity() {
+    const passwordConfirmationValue = passwordConfirmationInput.value.trim();
+    isPasswordConfirmationValid = false;
 
-    if (passwordInput.value.trim() !== passwordConfirmationInput.value.trim()) {
-      showError(passwordConfirmationInput, "passwordConfirmationError");
-    }
-  }
-
-  // 비밀번호 입력 전에 비밀번호 확인 필드 입력을 먼저 시도하는 만일의 경우를 대비한 검증 로직
-  // - 비밀번호 확인 필드에서 focus out됐을 때가 아닌, 입력 시 실행하기 위해 validatePasswordConfirmationField 함수와 분리함
-  function initializePasswordConfirmation() {
     hideError(passwordConfirmationInput, "passwordConfirmationError");
     hideError(passwordConfirmationInput, "passwordConfirmationInitError");
 
     if (!isPasswordValid) {
       showError(passwordConfirmationInput, "passwordConfirmationInitError");
+    } else if (
+      !passwordConfirmationValue ||
+      passwordConfirmationValue !== passwordInput.value.trim()
+    ) {
+      showError(passwordConfirmationInput, "passwordConfirmationError");
+    } else {
+      isPasswordConfirmationValid = true;
+      hideError(passwordConfirmationInput, "passwordConfirmationError");
+      hideError(passwordConfirmationInput, "passwordConfirmationInitError");
     }
+    updateSubmitButtonState();
+  }
+
+  function updateSubmitButtonState() {
+    // form submit button의 활성화 여부를 관장하기 위한 변수
+    let isFormValid = isEmailValid && isPasswordValid;
+
+    if (signupForm) {
+      isFormValid =
+        isFormValid && isNicknameValid && isPasswordConfirmationValid;
+    }
+
+    submitButton.disabled = !isFormValid;
   }
 
   // 입력 필드에 이벤트 리스너 추가
-  // - 입력 필드 선택 후 focus out 했을 때 각 필드에 해당하는 유효성 검증 함수를 호출
   // - 회원가입 및 로그인 form에서는 사용자가 입력한 데이터의 유효성을 즉각적으로 검증하고 피드백을 제공하기 위해서 focusout, input, change 등의 input event를 많이 사용해요.
   if (emailInput) {
-    emailInput.addEventListener("focusout", validateEmailField);
+    // - 입력 필드 선택 후 focus out 했을 때 각 필드에 해당하는 유효성 검증 함수를 호출
+    emailInput.addEventListener("focusout", checkEmailValidity);
   }
   if (nicknameInput) {
-    nicknameInput.addEventListener("focusout", validateNicknameField);
+    nicknameInput.addEventListener("focusout", checkNicknameValidity);
   }
   if (passwordInput) {
-    passwordInput.addEventListener("focusout", validatePasswordField);
+    passwordInput.addEventListener("focusout", checkPasswordValidity);
   }
   if (passwordConfirmationInput) {
-    passwordConfirmationInput.addEventListener(
-      "focusout",
-      validatePasswordConfirmationField
-    );
-    // 비밀번호 확인 필드 입력 시 비밀번호 필드에 정상적인 입력값이 있는지 바로 확인 및 오류 메세지 표시
+    // 비밀번호 확인 필드 입력 시 정상적인 비밀번호 입력값이 있는지, 그리고 두 값이 일치하는지 여부를 실시간으로 확인하고 오류 메세지를 표시하기 위해 focusout이 아닌 input을 추천
     passwordConfirmationInput.addEventListener(
       "input",
-      initializePasswordConfirmation
+      checkPasswordConfirmationValidity
     );
   }
+
+  // 페이지 로드 시 제출 버튼의 비활성화 상태를 설정
+  updateSubmitButtonState();
 
   // 비밀번호 표시 상태 온오프(toggle) 버튼 동작
   function togglePasswordVisibility(event) {
@@ -138,15 +180,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 비밀번호 입력 필드 타입 토글
     // - 비밀번호 필드의 type 설정값이 'password'로 확인되면 'text'로, 'text'라면 반대로 'password'로 업데이트해 준다면 원하는 동작을 구현할 수 있어요.
-    inputField.type = isPasswordVisible ? "password" : "text";
+    inputField.type = isPasswordVisible ? "text" : "password";
 
     // 토글 버튼 아이콘의 이미지 파일과 alt도 비밀번호 표시 상태와 함께 변경해 주세요.
     toggleIcon.src = isPasswordVisible
-      ? "images/icons/eye-invisible.svg"
-      : "images/icons/eye-visible.svg";
+      ? "images/icons/eye-visible.svg"
+      : "images/icons/eye-invisible.svg";
     toggleIcon.alt = isPasswordVisible
-      ? "비밀번호 숨김 상태 아이콘"
-      : "비밀번호 표시 상태 아이콘";
+      ? "비밀번호 표시 상태 아이콘"
+      : "비밀번호 숨김 상태 아이콘";
 
     // 버튼의 aria-label 속성 업데이트
     // - 텍스트 정보 없이 이미지로만 되어 있는 버튼 요소이므로 시각장애인의 웹 접근성을 위해 `aria-label`을 추가해 주세요.
@@ -155,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //    이런 속성을 설정하거나 가져올 때는 setAttribute과 getAttribute 메서드를 사용해야 해요.
     button.setAttribute(
       "aria-label",
-      isPasswordVisible ? "비밀번호 보기" : "비밀번호 숨기기"
+      isPasswordVisible ? "비밀번호 숨기기" : "비밀번호 보기"
     );
   }
 
