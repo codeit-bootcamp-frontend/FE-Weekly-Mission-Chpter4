@@ -143,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
         isFormValid && isNicknameValid && isPasswordConfirmationValid;
     }
 
+    // isFormValid의 boolean 값에 따라 선택된 제출 버튼의 disabled 속성을 변경
     submitButton.disabled = !isFormValid;
   }
 
@@ -156,7 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
     nicknameInput.addEventListener("focusout", checkNicknameValidity);
   }
   if (passwordInput) {
-    passwordInput.addEventListener("focusout", checkPasswordValidity);
+    // 로그인에서는 비밀번호 필드가 마지막 항목이므로 입력 후 바로 제출 버튼을 활성화해주려면 focusout보다 input이 더 적절할 것 같아요.
+    passwordInput.addEventListener("input", checkPasswordValidity);
   }
   if (passwordConfirmationInput) {
     // 비밀번호 확인 필드 입력 시 정상적인 비밀번호 입력값이 있는지, 그리고 두 값이 일치하는지 여부를 실시간으로 확인하고 오류 메세지를 표시하기 위해 focusout이 아닌 input을 추천
