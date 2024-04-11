@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let isPasswordConfirmationValid = false;
 
   // ID를 통해 타겟 DOM 요소에 접근
+  const loginForm = document.getElementById("loginForm");
   const signupForm = document.getElementById("signupForm");
   const emailInput = document.getElementById("email");
   const nicknameInput = document.getElementById("nickname");
@@ -167,6 +168,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 페이지 로드 시 제출 버튼의 비활성화 상태를 설정
   updateSubmitButtonState();
+
+  if (loginForm) {
+    loginForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // 기본 제출 동작 방지
+      window.location.href = "items.html";
+    });
+  }
+
+  if (signupForm) {
+    signupForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      window.location.href = "signup.html";
+    });
+  }
 
   // 비밀번호 표시 상태 온오프(toggle) 버튼 동작
   function togglePasswordVisibility(event) {
